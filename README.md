@@ -52,6 +52,7 @@ npm start
 
 - `GET /webhooks/meta`: verificación del webhook usando `META_WEBHOOK_VERIFY_TOKEN`.
 - `POST /webhooks/meta`: recibe eventos y valida `X-Hub-Signature-256` con `META_APP_SECRET`.
+- `/webhook` también está disponible como alias compatible.
 
 ### Administración
 
