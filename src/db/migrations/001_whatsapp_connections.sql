@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS whatsapp_connections (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  clinic_id VARCHAR(100) NOT NULL UNIQUE,
+  phone_number_id VARCHAR(100) NOT NULL UNIQUE,
+  waba_id VARCHAR(100) NULL,
+  access_token_encrypted TEXT NOT NULL,
+  clinic_key_hash CHAR(64) NOT NULL,
+  status ENUM('active','disabled') NOT NULL DEFAULT 'active',
+  last_seen_at DATETIME(3) NULL,
+  created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  updated_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)
+) ENGINE=InnoDB;

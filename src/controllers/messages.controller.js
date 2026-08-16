@@ -1,0 +1,2 @@
+const meta = require('../services/meta.service');
+exports.send = async (req, res, next) => { try { const { to, type = 'text', body, previewUrl, content } = req.body || {}; if (!to || (type === 'text' && !body)) return res.status(400).json({ error: 'to y body son obligatorios para mensajes de texto' }); res.status(201).json({ message: await meta.sendMessage(req.connection, { to, type, body, previewUrl, content }) }); } catch (e) { next(e); } };

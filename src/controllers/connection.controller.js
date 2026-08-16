@@ -1,0 +1,3 @@
+const service = require('../services/clinicConnection.service');
+exports.create = async (req, res, next) => { try { const { clinicId, phoneNumberId, wabaId, accessToken } = req.body || {}; if (!clinicId || !phoneNumberId || !accessToken) return res.status(400).json({ error: 'clinicId, phoneNumberId y accessToken son obligatorios' }); res.status(201).json(await service.createConnection({ clinicId, phoneNumberId, wabaId, accessToken })); } catch (e) { next(e); } };
+exports.list = async (req, res, next) => { try { res.json({ connections: await service.listConnections() }); } catch (e) { next(e); } };
