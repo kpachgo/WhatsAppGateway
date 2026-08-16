@@ -6,6 +6,12 @@ function required(name) {
   return value;
 }
 
+function requiredAny(...names) {
+  const value = names.map((name) => process.env[name]).find(Boolean);
+  if (!value) throw new Error(`Falta una de estas variables de entorno: ${names.join(', ')}`);
+  return value;
+}
+
 const encryptionKey = required('TOKEN_ENCRYPTION_KEY');
 if (!/^[0-9a-fA-F]{64}$/.test(encryptionKey)) {
   throw new Error('TOKEN_ENCRYPTION_KEY debe contener exactamente 64 caracteres hexadecimales');
@@ -16,8 +22,12 @@ module.exports = {
   port: Number(process.env.PORT || 3000),
   logLevel: process.env.LOG_LEVEL || 'info',
   mysql: {
-    host: required('MYSQL_HOST'), port: Number(process.env.MYSQL_PORT || 3306),
-    database: required('MYSQL_DATABASE'), user: required('MYSQL_USER'), password: required('MYSQL_PASSWORD')
+    // Acepta nombres propios y los nombres que entrega el plugin MySQL de Railway.
+    host: requiredAny('MYSQL_HOST', 'MYSQLHOST'),
+    port: Number(process.env.MYSQL_PORT || process.env.MYSQLPORT || 3306),
+    database: requiredAny('MYSQL_DATABASE', 'MYSQLDATABASE'),
+    user: requiredAny('MYSQL_USER', 'MYSQLUSER'),
+    password: requiredAny('MYSQL_PASSWORD', 'MYSQLPASSWORD')
   },
   meta: {
     graphVersion: process.env.META_GRAPH_VERSION || 'v23.0',

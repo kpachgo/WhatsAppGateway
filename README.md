@@ -21,6 +21,18 @@ Edita `.env`. `TOKEN_ENCRYPTION_KEY` debe ser una clave aleatoria de 32 bytes ex
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
+En Railway debes agregar estas variables en la pestaña **Variables**. Railway no utiliza automáticamente el `.env` de tu computadora:
+
+```text
+META_GRAPH_VERSION=v23.0
+META_APP_SECRET=...
+META_WEBHOOK_VERIFY_TOKEN=...
+TOKEN_ENCRYPTION_KEY=...
+ADMIN_API_TOKEN=...
+```
+
+Si agregas un servicio MySQL de Railway, sus variables `MYSQLHOST`, `MYSQLPORT`, `MYSQLDATABASE`, `MYSQLUSER` y `MYSQLPASSWORD` son aceptadas directamente por la aplicación. Si usas una base externa, configura sus equivalentes `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_DATABASE`, `MYSQL_USER` y `MYSQL_PASSWORD`.
+
 Crea la base de datos y ejecuta el script único:
 
 ```bash
